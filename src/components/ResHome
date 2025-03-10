@@ -1,0 +1,97 @@
+import { useState, useEffect } from "react";
+import { RevealOnScroll } from "../RevealOnScroll";
+import { motion } from "framer-motion";
+import "../Home.css";
+
+export const ResHome = () => {
+  const words = ["Memories", "Montages", "Reels"];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, 2000); // Change text every 2 seconds
+
+    return () => clearInterval(interval);
+  }, [words.length]);
+
+  return (
+    <section id="home" className="relative w-full min-h-screen px-4 py-8 flex flex-col items-center justify-center">
+      <RevealOnScroll>
+        {/* Profile Image - Top position for mobile */}
+        <div className="relative w-[180px] h-[180px] mb-6">
+          {/* Glowing Animated Border */}
+          <motion.div
+            className="absolute inset-0 rounded-full border-[6px] border-cyan-400 blur-lg"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+          />
+
+          {/* Image Container */}
+          <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg border-3 border-cyan-400 flex items-center justify-center">
+            <img
+              src="/web.png"
+              alt="profile"
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+        </div>
+
+        <div className="text-center z-10 mt-3">
+          {/* Main Heading */}
+          <h1 className="text-4xl font-bold mb-4 home">
+            <span className="text-white Res">Hi, I'm</span>
+            <span className="text-cyan-400 Res2"> Muneeb</span>
+          </h1>
+
+          {/* Simplified Animated Text for Mobile */}
+          <div className="text-xl text-white mt-4 font-['oswald']">
+            I create{" "}
+            <span className="relative inline-block h-8">
+              {words.map((word, i) => (
+                <span
+                  key={i}
+                  className={`absolute left-0 right-0 transition-all duration-700 ease-in-out ${
+                    i === index
+                      ? "opacity-100 transform-none"
+                      : "opacity-0 translate-y-3"
+                  }`}
+                  style={{ color: "#e3a771" }}
+                >
+                  {word}
+                </span>
+              ))}
+              <span className="opacity-0">{words[0]}</span> {/* Maintains height */}
+            </span>
+          </div>
+
+          <div className="mt-6 px-1">
+            <p className="text-gray-400 text-sm mb-5">
+              I'm a passionate video editor who loves turning raw footage into
+              engaging stories. I edit videos and reels that tell real stories.
+              I work with brands and creators to capture their vision and bring
+              it to life.
+            </p>
+          </div>
+
+          <div className="flex flex-col space-y-3 mt-4">
+            <a
+              href="#projects"
+              className="bg-cyan-400 text-white py-2.5 px-5 rounded font-medium active:bg-cyan-500 transition-all BtnRes1"
+            >
+              View Projects
+            </a>
+            <a
+              href="#contact"
+              className="border border-cyan-400 text-cyan-400 py-2.5 px-5 rounded font-medium active:bg-blue-500/20 transition-all BtnRes2"
+            >
+              Contact Me
+            </a>
+          </div>
+        </div>
+      </RevealOnScroll>
+    </section>
+  );
+};
+
+export default ResHome;

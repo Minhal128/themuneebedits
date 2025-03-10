@@ -1,0 +1,12 @@
+    @media (max-width: 768px) {
+  .para {
+    font-size: 0.8rem;
+  }
+
+  .Bouncy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}
